@@ -1,0 +1,33 @@
+const pesoInput = document.getElementById('peso');
+const alturaInput = document.getElementById('altura');
+const calcularButton = document.getElementById('calcular');
+const resultadoElement = document.getElementById('resultado');
+
+calcularButton.addEventListener('click', calcularIMC);
+
+function calcularIMC(event) {
+  event.preventDefault();
+
+  const peso = parseFloat(pesoInput.value);
+  const altura = parseFloat(alturaInput.value);
+
+  if (isNaN(peso) || isNaN(altura)) {
+    resultadoElement.textContent = 'Por favor, ingrese valores válidos';
+    return;
+  }
+
+  const IMC = peso / (altura ** 2);
+  const resultado = `Su IMC es ${IMC.toFixed(2)}`;
+
+  if (IMC < 18.5) {
+    resultado += '. Su IMC está entre el rango de bajo peso <18.5';
+  } else if (IMC < 25) {
+    resultado += '. Su IMC está entre el rango normal >=18.5-24.9';
+  } else if (IMC < 30) {
+    resultado += '. Su IMC está entre el rango de sobrepeso >=25-29.9';
+  } else {
+    resultado += '. Su IMC está entre el rango de obesidad >=30';
+  }
+
+  resultadoElement.textContent = resultado;
+}
